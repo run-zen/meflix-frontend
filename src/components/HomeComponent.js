@@ -59,7 +59,10 @@ function Home() {
                     {Movies.map((movie) => {
                         const title = `${movie.title}`;
                         return (
-                            <div className="movie-grid" key={movie._id}>
+                            <div
+                                className="col-md-3 col-12 movie-grid"
+                                key={movie._id}
+                            >
                                 <img
                                     src={movie.poster}
                                     alt="movie poster"
@@ -67,7 +70,10 @@ function Home() {
                                 ></img>
                                 <h4>{title}</h4>
                                 <span className="badge">
-                                    imdb {movie.imdb.rating}
+                                    imdb:{" "}
+                                    {!movie.imdb.rating
+                                        ? "not rated"
+                                        : movie.imdb.rating}
                                 </span>
                             </div>
                         );
@@ -80,7 +86,7 @@ function Home() {
         <div className="homepage">
             <div className="container">
                 <div className="row">
-                    <div className="col-3 offset-9 searchbar">
+                    <div className="col-12 col-md-3 offset-md-9 searchbar">
                         <div class="input-group">
                             <div class="form-outline">
                                 <input
