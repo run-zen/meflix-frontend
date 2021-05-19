@@ -8,7 +8,7 @@ class MoviesData {
     quicksearch(name) {
         let search = name;
         if (!search) {
-            search = "thor";
+            return this.getHomepage();
         }
         return http.get(`/quicksearch/${search}`);
     }
