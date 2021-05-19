@@ -6,7 +6,10 @@
         max-width: 80%;
         min-height: 60vh;
         max-height: 60vh;
+        background-color: black;
         border: 2px solid white;
+        opacity: 1;
+        transition: opacity 0.6s;
     }
     .movie-grid span {
         margin-top: 5px;
@@ -53,22 +56,131 @@
         height: auto;
         margin-bottom: 40px;
     }
+    .movie-thumbnail {
+        position: relative;
+        background: black;
+    }
+    .movie-thumbnail .view-details {
+        width: 70%;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        color: black;
+        background-color: white;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        opacity: 0;
+        transition: opacity 0.8s;
+    }
+
+    /* hover properties*/
+
+    .movie-thumbnail:hover .img-thumbnail {
+        border: 2px solid green;
+    }
+
+    /* movie component properties*/
+    .movie-poster {
+        width: 80%;
+        height: 70vh;
+    }
+    .movie-details {
+        margin-top: 6vh;
+    }
+    .movie-desc {
+        margin-left: 10%;
+    }
+    .movie-title {
+        font-size: 50px;
+        font-weight: 700;
+        color: white;
+    }
+    .movie-year {
+        margin-top: 20px;
+        color: rgb(201, 201, 201);
+        font-size: 30px;
+        font-weight: 500;
+    }
+    .movie-year .badge {
+        background-color: rgb(255, 153, 0);
+        margin-right: 12px;
+    }
+    .movie-genre {
+        font-size: 20px;
+        font-weight: 500;
+        color: azure;
+    }
+    .movie-rating {
+        display: flex;
+        margin-top: 5vh;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .movie-rating .badge {
+        height: auto;
+        align-items: center;
+        font-size: 18px;
+        margin-right: 5vw;
+        color: black;
+        background-color: rgb(255, 251, 3);
+    }
+    .movie-rating i {
+        margin-top: 3px;
+        font-size: 25px;
+        margin-left: 1vw;
+        color: rgb(1, 150, 1);
+    }
+    .movie-plot {
+        color: aliceblue;
+        margin-top: 7vh;
+        margin-left: 5%;
+        margin-right: 2%;
+        margin-bottom: 10vh;
+    }
 }
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 @media screen and (min-width: 550px) {
-    .img-thumbnail {
+    .grid-img {
         min-width: 100%;
         max-width: 100%;
         min-height: 60vh;
         max-height: 60vh;
         border: 2px solid white;
+        background-color: black;
+        opacity: 1;
+        transition: opacity 0.6s;
     }
     .movie-grid span {
         margin-top: 5px;
-
         margin-bottom: 10px;
-        margin-left: 10px;
-        font-size: 15px;
-        font-weight: 400;
+        font-size: 18px;
+        font-weight: 600;
         background-color: black;
     }
     .movie-grid h4 {
@@ -112,7 +224,120 @@
         height: auto;
         margin-bottom: 40px;
     }
+
+    .movie-thumbnail {
+        position: relative;
+        background: black;
+        z-index: 10;
+    }
+    .movie-thumbnail .view-details {
+        width: 60%;
+        font-size: 20px;
+        font-weight: 600;
+        color: black;
+        background-color: white;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%);
+        opacity: 0;
+        transition: opacity 0.8s;
+    }
+
+    /* hover classes*/
+    .movie-thumbnail:hover .view-details {
+        opacity: 1;
+    }
+    .movie-thumbnail:hover .grid-img {
+        opacity: 0.3;
+    }
+
+    /* movie component classes*/
+    .movie-poster {
+        width: 80%;
+        height: 70vh;
+    }
+    .movie-details {
+        display: flex;
+        margin-top: 6vh;
+    }
+    .movie-title {
+        font-size: 50px;
+        font-weight: 700;
+        color: white;
+    }
+    .movie-year {
+        margin-top: 20px;
+        color: rgb(201, 201, 201);
+        font-size: 30px;
+        font-weight: 500;
+    }
+    .movie-year .badge {
+        background-color: rgb(255, 153, 0);
+        margin-right: 12px;
+    }
+    .movie-genre {
+        font-size: 20px;
+        font-weight: 500;
+        color: azure;
+    }
+    .movie-rating {
+        display: flex;
+        margin-top: 5vh;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .movie-rating .badge {
+        height: auto;
+        align-items: center;
+        font-size: 18px;
+        margin-right: 5vw;
+        color: black;
+        background-color: rgb(255, 251, 3);
+    }
+    .movie-rating i {
+        margin-top: 3px;
+        font-size: 25px;
+        margin-left: 1vw;
+        color: rgb(1, 150, 1);
+    }
+    .movie-plot {
+        margin-left: 3%;
+        color: aliceblue;
+        margin-top: 5vh;
+        margin-bottom: 10vh;
+    }
+    .movie-plot p {
+        font-size: 20px;
+        font-weight: 350;
+    }
 }
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 .homepage {
     background: rgba(0, 0, 0, 1);
@@ -139,4 +364,8 @@
 .navbar-dark {
     background-color: black;
     border-bottom: 1px solid rgb(255, 255, 255, 0.2);
+}
+
+.fa-star {
+    color: green;
 }

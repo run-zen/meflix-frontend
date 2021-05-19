@@ -12,6 +12,10 @@ class MoviesData {
         }
         return http.get(`/quicksearch/${search}`);
     }
+
+    getMovieById(id) {
+        return http.get(`/id/${id}`);
+    }
 }
 
 export default new MoviesData();

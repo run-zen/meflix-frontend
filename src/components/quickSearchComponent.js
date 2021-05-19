@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 import MoviesData from "../views/moviesData.js";
+import Spinner from "./spinnerComponent.js";
 
 function QuickSearch(props) {
     const [Movies, setMovies] = useState([]);
@@ -14,6 +15,10 @@ function QuickSearch(props) {
         getMovies();
         // eslint-disable-next-line
     }, []);
+
+    const handleScroll = () => {
+        window.scroll(0, 0);
+    };
 
     const onChangeSearchName = (e) => {
         const searchName = e.target.value;
@@ -47,18 +52,6 @@ function QuickSearch(props) {
         }
     }
 
-    const Spinner = () => {
-        return (
-            <div className="spinner-position">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-grow text-light" role="status">
-                        <span class="visually-hidden"></span>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
     function DisplayMovies() {
         return (
             <div className="container">
@@ -77,17 +70,29 @@ function QuickSearch(props) {
                     </div>
                     {Movies.map((movie) => {
                         const title = `${movie.title}`;
+                        const date = new Date(movie.released);
+                        const year = date.getFullYear();
                         return (
                             <div
                                 className="col-12 col-md-3 movie-grid"
                                 key={movie._id}
                             >
-                                <img
-                                    src={movie.poster}
-                                    alt="movie poster"
-                                    className="img-thumbnail"
-                                ></img>
+                                <div className="movie-thumbnail">
+                                    <img
+                                        src={movie.poster}
+                                        alt="movie poster"
+                                        className="img-thumbnail grid-img"
+                                    ></img>
+                                    <Link
+                                        to={"/id/" + movie._id}
+                                        className="btn btn-secondary view-details"
+                                        onClick={handleScroll}
+                                    >
+                                        view details
+                                    </Link>
+                                </div>
                                 <h4>{title}</h4>
+                                <h4>{year}</h4>
                                 <span class="badge">
                                     imdb:{" "}
                                     {!movie.imdb.rating
