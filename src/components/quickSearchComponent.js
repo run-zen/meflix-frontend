@@ -8,6 +8,7 @@ function QuickSearch(props) {
     const [Moviesfound, setMoviesfound] = useState(-1);
     const [loading, setloading] = useState(false);
     const [searchname, setSearchname] = useState("");
+    const [resultfor, setResultfor] = useState("");
 
     useEffect(() => {
         getMovies();
@@ -22,6 +23,7 @@ function QuickSearch(props) {
     const getMovies = async () => {
         try {
             const parsed = queryString.parse(props.location.search);
+            setResultfor(parsed.name);
             const { data } = await MoviesData.quicksearch(parsed.name);
             setloading(true);
             setMoviesfound(data["Movies found"]);
@@ -37,6 +39,7 @@ function QuickSearch(props) {
             setloading(false);
             const { data } = await MoviesData.quicksearch(searchname);
             setloading(true);
+            setResultfor(searchname);
             setMoviesfound(data["Movies found"]);
             setMovies(data.MoviesList);
         } catch (e) {
@@ -62,13 +65,20 @@ function QuickSearch(props) {
                 <div className="row">
                     <div className="col-12">
                         <span className="badge results-found">
-                            Movies found : {Moviesfound}
+                            {resultfor !== "" ? (
+                                <div>
+                                    {Moviesfound} movies found for your search "
+                                    {resultfor}"
+                                </div>
+                            ) : (
+                                <div>{Moviesfound} movies found</div>
+                            )}
                         </span>
                     </div>
                     {Movies.map((movie) => {
                         const title = `${movie.title}`;
                         return (
-                            <div className="movie-grid">
+                            <div className="movie-grid" key={movie._id}>
                                 <img
                                     src={movie.poster}
                                     alt="movie poster"
@@ -103,6 +113,7 @@ function QuickSearch(props) {
                                 />
                             </div>
                             <Link
+                                id="submit-btn"
                                 for="#quicksearch-bar"
                                 to={"/quicksearch/?name=" + searchname}
                                 type="submit"

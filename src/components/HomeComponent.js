@@ -9,6 +9,7 @@ function Home() {
 
     useEffect(() => {
         getMovies();
+
         // eslint-disable-next-line
     }, []);
 
@@ -58,7 +59,7 @@ function Home() {
                     {Movies.map((movie) => {
                         const title = `${movie.title}`;
                         return (
-                            <div className="movie-grid">
+                            <div className="movie-grid" key={movie._id}>
                                 <img
                                     src={movie.poster}
                                     alt="movie poster"
@@ -93,6 +94,7 @@ function Home() {
                                 />
                             </div>
                             <Link
+                                id="submit-btn"
                                 for="#quicksearch-bar"
                                 to={"/quicksearch/?name=" + searchname}
                                 type="submit"
