@@ -39,7 +39,12 @@ function Movie() {
                 <div className="movie-details">
                     <div className="col-12 col-md-4">
                         <img
-                            src={poster}
+                            src={
+                                poster
+                                    ? poster
+                                    : process.env.PUBLIC_URL +
+                                      "/No_Img_Avail.jpg"
+                            }
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src =

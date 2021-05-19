@@ -53,6 +53,7 @@ function Home() {
                         const title = `${movie.title}`;
                         const date = new Date(movie.released);
                         const year = date.getFullYear();
+                        const poster = movie.poster;
                         return (
                             <div
                                 className="col-md-3 col-12 movie-grid"
@@ -60,7 +61,12 @@ function Home() {
                             >
                                 <div className="movie-thumbnail">
                                     <img
-                                        src={movie.poster}
+                                        src={
+                                            poster
+                                                ? poster
+                                                : process.env.PUBLIC_URL +
+                                                  "/No_Img_Avail.jpg"
+                                        }
                                         onError={(e) => {
                                             e.target.onerror = null;
                                             e.target.src =
