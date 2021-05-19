@@ -1,26 +1,63 @@
+.homepage {
+    background: black;
+    min-height: 110vh;
+}
 .movie-grid {
-    width: 18%;
+    width: 24%;
     height: 500px;
     float: left;
     margin-bottom: 50px;
-    margin-left: 3%;
-    margin-right: 4%;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.1);
+    margin-right: 2px;
+    margin-left: 2px;
+    background-color: rgba(122, 121, 121, 0.1);
 }
 .movie-grid h4 {
-    text-align: center;
+    margin-left: 10px;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 300;
     margin-bottom: 5px;
     margin-top: 10px;
 }
+.movie-grid span {
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: black;
+}
 .img-thumbnail {
     min-width: 100%;
-    min-height: 400px;
+    max-width: 100%;
+    min-height: 399px;
+    max-height: 400px;
     border: 2px solid white;
 }
 
 .searchbar {
     margin-top: 50px;
     height: 10vh;
-    margin-left: 81%;
+}
+.spinner-position {
+    margin-top: 25vh;
+}
+
+.results-found {
+    color: aliceblue;
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    background-color: rgba(192, 192, 192, 0.15);
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.homepage-titles {
+    font-size: 40px;
+    font-weight: 500;
+    color: white;
+    height: 60px;
+    margin-bottom: 40px;
+    text-align: center;
 }

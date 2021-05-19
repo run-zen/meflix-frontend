@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import queryString from "query-string";
 import MoviesData from "../views/moviesData.js";
 
-function Home() {
+function QuickSearch(props) {
     const [Movies, setMovies] = useState([]);
+    const [Moviesfound, setMoviesfound] = useState(-1);
     const [loading, setloading] = useState(false);
     const [searchname, setSearchname] = useState("");
 
@@ -19,8 +21,10 @@ function Home() {
 
     const getMovies = async () => {
         try {
-            const { data } = await MoviesData.getHomepage();
+            const parsed = queryString.parse(props.location.search);
+            const { data } = await MoviesData.quicksearch(parsed.name);
             setloading(true);
+            setMoviesfound(data["Movies found"]);
             setMovies(data.MoviesList);
             console.log(Movies);
         } catch (e) {
@@ -33,6 +37,7 @@ function Home() {
             setloading(false);
             const { data } = await MoviesData.quicksearch(searchname);
             setloading(true);
+            setMoviesfound(data["Movies found"]);
             setMovies(data.MoviesList);
         } catch (e) {
             console.error(e);
@@ -55,6 +60,11 @@ function Home() {
         return (
             <div className="container">
                 <div className="row">
+                    <div className="col-12">
+                        <span className="badge results-found">
+                            Movies found : {Moviesfound}
+                        </span>
+                    </div>
                     {Movies.map((movie) => {
                         const title = `${movie.title}`;
                         return (
@@ -103,15 +113,19 @@ function Home() {
                             </Link>
                         </div>
                     </div>
-                    <div className="col-12">
-                        <div className="homepage-titles">Highest rated</div>
-                    </div>
                 </div>
             </div>
-
-            <div>{loading ? <DisplayMovies /> : <Spinner />}</div>
+            <div>
+                {loading ? (
+                    <div>
+                        <DisplayMovies />
+                    </div>
+                ) : (
+                    <Spinner />
+                )}
+            </div>
         </div>
     );
 }
 
-export default Home;
+export default QuickSearch;
