@@ -92,7 +92,7 @@ function QuickSearch(props) {
                                     </Link>
                                 </div>
                                 <h4>{title}</h4>
-                                <h4>{year}</h4>
+                                <h4>{year ? year : ""}</h4>
                                 <span class="badge">
                                     imdb:{" "}
                                     {!movie.imdb.rating

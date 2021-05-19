@@ -32,6 +32,7 @@ function Movie() {
     function Moviedisplay() {
         const date = new Date(movie.released);
         const year = date.getFullYear();
+        const rated = movie.rated;
         return (
             <div>
                 <div className="movie-details">
@@ -46,8 +47,8 @@ function Movie() {
                         <div className="movie-desc">
                             <div className="movie-title">{movie.title}</div>
                             <div className="movie-year">
-                                <span className="badge">{movie.rated}</span>
-                                {year}
+                                <span className="badge">{rated}</span>
+                                {year ? year : ""}
                             </div>
                             <div className="movie-genre">{genres}</div>
                             <div className="movie-rating">

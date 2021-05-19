@@ -73,7 +73,7 @@ function Home() {
                                     </Link>
                                 </div>
                                 <h4>{title}</h4>
-                                <h4>{year}</h4>
+                                <h4>{year ? year : ""}</h4>
                                 <span className="badge">
                                     imdb:{" "}
                                     {!movie.imdb.rating
