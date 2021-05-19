@@ -9,6 +9,7 @@ function Home() {
 
     useEffect(() => {
         getMovies();
+        // eslint-disable-next-line
     }, []);
 
     const onChangeSearchName = (e) => {
