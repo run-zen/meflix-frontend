@@ -105,7 +105,7 @@ function QuickSearch(props) {
         <div className="homepage">
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-3 offset-md-9 searchbar">
+                    <div className="searchbar">
                         <div class="input-group">
                             <div class="form-outline">
                                 <input

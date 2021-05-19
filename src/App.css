@@ -1,4 +1,4 @@
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 550px) {
     .img-thumbnail {
         margin-left: 10%;
         margin-right: 10%;
@@ -32,17 +32,17 @@
         margin-bottom: 70px;
         border-radius: 5px;
     }
-    .searchbar {
+    .searchbar .input-group {
+        display: flex;
+        flex: content;
+
         margin-top: 50px;
         height: 10vh;
+        align-items: center;
+        justify-content: center;
     }
-    .form-outline input {
-        width: 45vw;
-        margin-left: 13vw;
-    }
-    #submit-btn {
-        width: 20vw;
-        margin-right: 10vw;
+    .searchbar {
+        margin-bottom: 20px;
     }
     .results-found {
         color: aliceblue;
@@ -50,12 +50,11 @@
         font-weight: 700;
         text-align: center;
         height: 60px;
-
         height: auto;
         margin-bottom: 40px;
     }
 }
-@media screen and (min-width: 412px) {
+@media screen and (min-width: 550px) {
     .img-thumbnail {
         min-width: 100%;
         max-width: 100%;
@@ -85,12 +84,25 @@
         margin-bottom: 50px;
         border-radius: 5px;
     }
-    .searchbar {
-        margin-top: 50px;
-        height: 10vh;
+    .form-outline input {
+        width: 25vw;
+        height: 6vh;
+    }
+    #submit-btn {
+        width: 7vw;
+        height: 6vh;
+        font-size: 20px;
     }
     .searchbar .input-group {
-        margin-left: 25px;
+        display: flex;
+        flex: content;
+        margin-top: 50px;
+        height: 10vh;
+        align-items: center;
+        justify-content: center;
+    }
+    .searchbar {
+        margin-bottom: 40px;
     }
     .results-found {
         color: aliceblue;
