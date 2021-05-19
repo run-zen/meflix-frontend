@@ -66,7 +66,7 @@ function Home() {
                                     className="img-thumbnail"
                                 ></img>
                                 <h4>{title}</h4>
-                                <span class="badge">
+                                <span className="badge">
                                     imdb {movie.imdb.rating}
                                 </span>
                             </div>
