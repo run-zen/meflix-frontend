@@ -33,12 +33,19 @@ function Movie() {
         const date = new Date(movie.released);
         const year = date.getFullYear();
         const rated = movie.rated;
+        const poster = movie.poster;
         return (
             <div>
                 <div className="movie-details">
                     <div className="col-12 col-md-4">
                         <img
-                            src={movie.poster}
+                            src={poster}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src =
+                                    process.env.PUBLIC_URL +
+                                    "/No_Img_Avail.jpg";
+                            }}
                             class="img-thumbnail mx-auto d-block movie-poster"
                             alt="movie poster"
                         />

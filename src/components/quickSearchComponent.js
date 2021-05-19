@@ -80,6 +80,12 @@ function QuickSearch(props) {
                                 <div className="movie-thumbnail">
                                     <img
                                         src={movie.poster}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src =
+                                                process.env.PUBLIC_URL +
+                                                "/No_Img_Avail.jpg";
+                                        }}
                                         alt="movie poster"
                                         className="img-thumbnail grid-img"
                                     ></img>
