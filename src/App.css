@@ -340,12 +340,13 @@
 */
 
 .homepage {
-    background: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 1);
     min-height: 110vh;
 }
 
 .spinner-position {
     margin-top: 25vh;
+    margin-bottom: 10vh;
 }
 
 .homepage-titles {

@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class MoviesData {
-    getHomepage() {
-        return http.get("/browseMovies?page=1&rating=8.5");
+    getHomepage(page = 1) {
+        return http.get(`/browseMovies?page=${page}&rating=8.8`);
     }
 
     quicksearch(name, page = 1) {
