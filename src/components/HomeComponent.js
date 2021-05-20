@@ -34,17 +34,6 @@ function Home() {
         }
     };
 
-    async function quicksearch() {
-        try {
-            setloading(false);
-            const { data } = await MoviesData.quicksearch(searchname);
-            setloading(true);
-            setMovies(data.MoviesList);
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
     function DisplayMovies() {
         return (
             <div className="container">
@@ -119,10 +108,13 @@ function Home() {
                             <Link
                                 id="submit-btn"
                                 for="#quicksearch-bar"
-                                to={"/quicksearch/?name=" + searchname}
+                                to={
+                                    "/quicksearch/?name=" +
+                                    searchname +
+                                    "&page=1"
+                                }
                                 type="submit"
                                 class="btn btn-outline-success"
-                                onClick={quicksearch}
                             >
                                 search
                             </Link>

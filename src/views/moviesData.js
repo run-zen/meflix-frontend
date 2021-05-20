@@ -2,15 +2,15 @@ import http from "../http-common";
 
 class MoviesData {
     getHomepage() {
-        return http.get("/browseMovies?page=1&rating=9");
+        return http.get("/browseMovies?page=1&rating=8.5");
     }
 
-    quicksearch(name) {
+    quicksearch(name, page = 1) {
         let search = name;
         if (!search) {
             return this.getHomepage();
         }
-        return http.get(`/quicksearch/${search}`);
+        return http.get(`/quicksearch/${search}?page=${page}`);
     }
 
     getMovieById(id) {

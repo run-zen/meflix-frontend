@@ -10,6 +10,7 @@ function QuickSearch(props) {
     const [loading, setloading] = useState(false);
     const [searchname, setSearchname] = useState("");
     const [resultfor, setResultfor] = useState("");
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         getMovies();
@@ -29,7 +30,11 @@ function QuickSearch(props) {
         try {
             const parsed = queryString.parse(props.location.search);
             setResultfor(parsed.name);
-            const { data } = await MoviesData.quicksearch(parsed.name);
+            setPage(parsed.page);
+            const { data } = await MoviesData.quicksearch(
+                parsed.name,
+                parsed.page
+            );
             setloading(true);
             setMoviesfound(data["Movies found"]);
             setMovies(data.MoviesList);
@@ -42,7 +47,7 @@ function QuickSearch(props) {
     async function quicksearch() {
         try {
             setloading(false);
-            const { data } = await MoviesData.quicksearch(searchname);
+            const { data } = await MoviesData.quicksearch(searchname, page);
             setloading(true);
             setResultfor(searchname);
             setMoviesfound(data["Movies found"]);
@@ -61,7 +66,7 @@ function QuickSearch(props) {
                             {resultfor !== "" ? (
                                 <div>
                                     {Moviesfound} movies found for your search "
-                                    {resultfor}"
+                                    {resultfor}" page : {page}
                                 </div>
                             ) : (
                                 <div>{Moviesfound} movies found</div>
@@ -138,7 +143,7 @@ function QuickSearch(props) {
                             <Link
                                 id="submit-btn"
                                 for="#quicksearch-bar"
-                                to={"/quicksearch/?name=" + searchname}
+                                to={`/quicksearch/?name=${searchname}&page=${page}`}
                                 type="submit"
                                 class="btn btn-outline-success"
                                 onClick={quicksearch}
