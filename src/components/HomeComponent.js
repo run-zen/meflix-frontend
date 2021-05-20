@@ -76,7 +76,7 @@ function Home() {
                         const date = new Date(movie.released);
                         const year = date.getFullYear();
                         const poster = movie.poster;
-                        const last = Movies.length === index + 1 ? true : false;
+                        const last = Movies.length === index + 4 ? true : false;
                         if (last) {
                             return (
                                 <div
