@@ -42,10 +42,6 @@ function Home() {
         setHasmore(totmov > Movies.length);
     });
 
-    const handleScroll = () => {
-        window.scroll(0, 0);
-    };
-
     const onChangeSearchName = (e) => {
         const searchName = e.target.value;
         setSearchname(searchName);
@@ -106,7 +102,6 @@ function Home() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="btn view-details"
-                                            onClick={handleScroll}
                                         >
                                             view details
                                         </Link>
@@ -149,7 +144,6 @@ function Home() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="btn view-details"
-                                            onClick={handleScroll}
                                         >
                                             view details
                                         </Link>

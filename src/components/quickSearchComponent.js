@@ -54,10 +54,6 @@ function QuickSearch(props) {
         // eslint-disable-next-line
     });
 
-    const handleScroll = () => {
-        window.scroll(0, 0);
-    };
-
     const onChangeSearchName = (e) => {
         const searchName = e.target.value;
         setSearchname(searchName);
@@ -155,7 +151,6 @@ function QuickSearch(props) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="btn btn-secondary view-details"
-                                            onClick={handleScroll}
                                         >
                                             view details
                                         </Link>
@@ -198,7 +193,6 @@ function QuickSearch(props) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="btn btn-secondary view-details"
-                                            onClick={handleScroll}
                                         >
                                             view details
                                         </Link>
