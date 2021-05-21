@@ -54,7 +54,7 @@ function Home() {
 
             setTotmov(data["Movies found"]);
             setMovies((prevMovies) => {
-                return [...prevMovies, ...data.MoviesList];
+                return [...new Set([...prevMovies, ...data.MoviesList])];
             });
             setHasmore(data["Movies found"] > Movies.length);
             setloading(false);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import MoviesData from "../views/moviesData.js";
 
 import Spinner from "./spinnerComponent.js";
@@ -74,6 +75,17 @@ function Movie() {
                                 <i className="fa fa-star"></i>
                             </div>
                         </div>
+                        <div className="movie-trailer">
+                            <Link
+                                target="_blank"
+                                to={`//www.youtube.com/results?search_query=${movie.title}+${year}`}
+                            >
+                                <h5>
+                                    <i className="fa fa-youtube-play"></i>
+                                    {` Watch trailer`}
+                                </h5>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <div className="movie-people">
@@ -84,7 +96,16 @@ function Movie() {
                                     <h3>Director</h3>
 
                                     {movie.directors.map((director) => {
-                                        return <h5>{director}</h5>;
+                                        return (
+                                            <h5>
+                                                <Link
+                                                    to={`//google.com/search?q=${director}`}
+                                                    target="_blank"
+                                                >
+                                                    {director}
+                                                </Link>
+                                            </h5>
+                                        );
                                     })}
                                 </div>
                             ) : (
@@ -99,7 +120,16 @@ function Movie() {
                         <div className="movie-cast">
                             <h3>Cast</h3>
                             {movie.cast ? (
-                                movie.cast.map((actor) => <h5>{actor}</h5>)
+                                movie.cast.map((actor) => (
+                                    <h5>
+                                        <Link
+                                            to={`//google.com/search?q=${actor}`}
+                                            target="_blank"
+                                        >
+                                            {actor}
+                                        </Link>
+                                    </h5>
+                                ))
                             ) : (
                                 <h5>No information</h5>
                             )}

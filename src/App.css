@@ -166,6 +166,40 @@
         padding-bottom: 5px;
         text-align: center;
     }
+    .movie-cast a {
+        text-decoration: none;
+        color: white;
+    }
+    .movie-cast a:hover {
+        color: aqua;
+    }
+    .fa-youtube-play {
+        font-size: 2em;
+        color: red;
+        margin-right: 8px;
+    }
+    .movie-trailer {
+        margin-top: 8vh;
+        display: flex;
+        flex: content;
+        justify-content: center;
+    }
+    .movie-trailer a {
+        display: flex;
+        width: fit-content;
+        text-decoration: none;
+    }
+    .movie-trailer h5 {
+        display: flex;
+        font-size: 25px;
+        align-items: center;
+        color: aliceblue;
+    }
+
+    .movie-trailer h5:hover {
+        transform: scale(1.2);
+        transition-duration: 0.6s;
+    }
 }
 
 /*
@@ -363,6 +397,37 @@
         padding-top: 5px;
         padding-bottom: 5px;
         text-align: center;
+    }
+    .movie-cast a {
+        text-decoration: none;
+        color: white;
+    }
+    .movie-cast a:hover {
+        color: aqua;
+    }
+    .fa-youtube-play {
+        font-size: 2em;
+        color: red;
+        margin-right: 8px;
+    }
+    .movie-trailer {
+        margin-top: 5vh;
+    }
+    .movie-trailer a {
+        width: fit-content;
+        display: flex;
+        text-decoration: none;
+    }
+    .movie-trailer h5 {
+        display: flex;
+        font-size: 25px;
+        align-items: center;
+        color: aliceblue;
+    }
+
+    .movie-trailer h5:hover {
+        transform: scale(1.2);
+        transition-duration: 0.6s;
     }
 }
 
