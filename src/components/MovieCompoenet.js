@@ -38,6 +38,7 @@ function Movie() {
         const year = date.getFullYear();
         const rated = movie.rated;
         const poster = movie.poster;
+
         return (
             <div>
                 <div className="movie-details">
@@ -75,11 +76,38 @@ function Movie() {
                         </div>
                     </div>
                 </div>
-                <div className="movie-cast">
-                    <div className="col-12 col-md-4">cast</div>
+                <div className="movie-people">
+                    <div className="col-12 col-md-3">
+                        <div className="movie-cast">
+                            {movie.directors ? (
+                                <div>
+                                    <h3>Director</h3>
+
+                                    {movie.directors.map((director) => {
+                                        return <h5>{director}</h5>;
+                                    })}
+                                </div>
+                            ) : (
+                                <div>
+                                    <h3>Director</h3>
+                                    <h5>No information</h5>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="col-12 offset-md-2 col-md-4">
+                        <div className="movie-cast">
+                            <h3>Cast</h3>
+                            {movie.cast ? (
+                                movie.cast.map((actor) => <h5>{actor}</h5>)
+                            ) : (
+                                <h5>No information</h5>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="movie-plot">
-                    <div className="col-12 col-md-8">
+                    <div className="col-12 col-md-9">
                         <h3>Plot</h3>
                         <div>
                             <p>{movie.fullplot}</p>
