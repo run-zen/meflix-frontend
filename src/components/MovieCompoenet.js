@@ -78,7 +78,7 @@ function Movie() {
                         <div className="movie-trailer">
                             <Link
                                 target="_blank"
-                                to={`//www.youtube.com/results?search_query=${movie.title}+${year}`}
+                                to={`//www.youtube.com/results?search_query=${movie.title}+${year}+trailer`}
                             >
                                 <h5>
                                     <i className="fa fa-youtube-play"></i>
