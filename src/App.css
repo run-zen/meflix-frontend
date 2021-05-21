@@ -312,6 +312,11 @@
         font-size: 18px;
         font-weight: 350;
     }
+    .movie-cast {
+        color: white;
+        margin-left: 3%;
+        margin-top: 5vh;
+    }
 }
 
 /*

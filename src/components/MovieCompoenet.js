@@ -6,12 +6,15 @@ import { useParams } from "react-router";
 
 function Movie() {
     const [movie, setMovie] = useState({});
-    const [loading, setloading] = useState(false);
+    const [loading, setloading] = useState(true);
     const { id } = useParams();
     const [rating, setRating] = useState(0);
     const [genres, setGenres] = useState("");
 
     useEffect(() => {
+        if (loading) {
+            document.title = "Loading...";
+        }
         getMovie();
 
         // eslint-disable-next-line
@@ -20,10 +23,11 @@ function Movie() {
     async function getMovie() {
         try {
             const { data } = await MoviesData.getMovieById(id);
+            document.title = data.title;
             setMovie(data);
             setRating(data.imdb.rating);
             setGenres(data.genres.join(" / "));
-            setloading(true);
+            setloading(false);
         } catch (e) {
             console.log(e);
         }
@@ -71,8 +75,11 @@ function Movie() {
                         </div>
                     </div>
                 </div>
+                <div className="movie-cast">
+                    <div className="col-12 col-md-4">cast</div>
+                </div>
                 <div className="movie-plot">
-                    <div className="col-12">
+                    <div className="col-12 col-md-8">
                         <h3>Plot</h3>
                         <div>
                             <p>{movie.fullplot}</p>
@@ -86,9 +93,8 @@ function Movie() {
     return (
         <div className="homepage">
             <div className="container">
-                <div className="row">
-                    {!loading ? <Spinner /> : <Moviedisplay />}
-                </div>
+                <div className="row">{!loading && <Moviedisplay />}</div>
+                <div className="row">{loading && <Spinner />}</div>
             </div>
         </div>
     );
