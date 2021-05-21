@@ -152,6 +152,8 @@ function QuickSearch(props) {
                                         ></img>
                                         <Link
                                             to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="btn btn-secondary view-details"
                                             onClick={handleScroll}
                                         >
@@ -193,6 +195,8 @@ function QuickSearch(props) {
                                         ></img>
                                         <Link
                                             to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="btn btn-secondary view-details"
                                             onClick={handleScroll}
                                         >

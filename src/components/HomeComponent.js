@@ -103,6 +103,8 @@ function Home() {
                                         ></img>
                                         <Link
                                             to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="btn view-details"
                                             onClick={handleScroll}
                                         >
@@ -144,6 +146,8 @@ function Home() {
                                         ></img>
                                         <Link
                                             to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="btn view-details"
                                             onClick={handleScroll}
                                         >
