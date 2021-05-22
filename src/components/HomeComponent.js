@@ -172,15 +172,12 @@ function Home() {
                         <div class="input-group">
                             <div class="form-outline">
                                 <input
-                                    type="text"
+                                    type="search"
                                     id="quicksearch-bar"
                                     className="form-control"
                                     placeholder="quick search"
                                     value={searchname}
                                     onChange={onChangeSearchName}
-                                    onFocus={(e) => {
-                                        e.target.select();
-                                    }}
                                     required
                                 />
                             </div>
