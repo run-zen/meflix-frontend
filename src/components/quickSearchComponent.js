@@ -121,7 +121,7 @@ function QuickSearch(props) {
                         const date = new Date(movie.released);
                         const year = date.getFullYear();
                         const poster = movie.poster;
-                        const last = Movies.length === index + 1 ? true : false;
+                        const last = Movies.length === index + 4 ? true : false;
                         if (last) {
                             return (
                                 <div
@@ -242,13 +242,11 @@ function QuickSearch(props) {
                             </Link>
                         </div>
                     </div>
+                    <div>
+                        <DisplayMovies />
+                    </div>
+                    <div>{loading && <Spinner />}</div>
                 </div>
-            </div>
-            <div>
-                <DisplayMovies />
-            </div>
-            <div className="container">
-                <div className="row">{loading && <Spinner />}</div>
             </div>
         </div>
     );

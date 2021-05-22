@@ -1,4 +1,7 @@
 @media screen and (max-width: 550px) {
+    .navbar {
+        margin-bottom: 10px;
+    }
     .img-thumbnail {
         margin-left: 10%;
         margin-right: 10%;
@@ -39,13 +42,16 @@
         display: flex;
         flex: content;
 
-        margin-top: 50px;
         height: 10vh;
         align-items: center;
         justify-content: center;
     }
     .searchbar {
+        position: sticky;
+        top: 0;
         margin-bottom: 20px;
+        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.8);
     }
     .results-found {
         color: aliceblue;
@@ -226,6 +232,9 @@
 
 */
 @media screen and (min-width: 550px) {
+    .navbar {
+        margin-bottom: 40px;
+    }
     .grid-img {
         min-width: 100%;
         max-width: 100%;
@@ -268,13 +277,17 @@
     .searchbar .input-group {
         display: flex;
         flex: content;
-        margin-top: 50px;
+
         height: 10vh;
         align-items: center;
         justify-content: center;
     }
     .searchbar {
+        position: sticky;
+        top: 0;
         margin-bottom: 40px;
+        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.8);
     }
     .results-found {
         color: aliceblue;
@@ -457,7 +470,7 @@
 
 .homepage {
     background-color: rgba(0, 0, 0, 1);
-    min-height: 110vh;
+    min-height: 100%;
 }
 
 .spinner-position {
@@ -485,4 +498,7 @@
 
 .fa-star {
     color: green;
+}
+body {
+    background-color: black;
 }

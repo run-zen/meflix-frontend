@@ -201,15 +201,13 @@ function Home() {
                             <i className="fa fa-star"></i> Highest rated
                         </div>
                     </div>
+                    <div>
+                        <DisplayMovies />
+                    </div>
+                    <div>{loading && <Spinner />}</div>
                 </div>
             </div>
 
-            <div>
-                <DisplayMovies />
-            </div>
-            <div className="container">
-                <div className="row">{loading && <Spinner />}</div>
-            </div>
             {/* <div className="container">
                 <div className="row">{loadingmore && <Spinner />}</div>
             </div> */}
