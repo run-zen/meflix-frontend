@@ -178,6 +178,9 @@ function Home() {
                                     placeholder="quick search"
                                     value={searchname}
                                     onChange={onChangeSearchName}
+                                    onFocus={(e) => {
+                                        e.target.select();
+                                    }}
                                     required
                                 />
                             </div>
