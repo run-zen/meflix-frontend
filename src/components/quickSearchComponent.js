@@ -92,6 +92,7 @@ function QuickSearch(props) {
 
     function clickSearch() {
         try {
+            document.getElementById("quicksearch-bar").blur();
             setMovies([]);
             setPage(1);
             quicksearch();
