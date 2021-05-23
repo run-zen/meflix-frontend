@@ -39,7 +39,12 @@ function Movie() {
         const year = date.getFullYear();
         const rated = movie.rated;
         const poster = movie.poster;
-
+        const hrs = Math.floor(movie.runtime / 60);
+        const mins = movie.runtime % 60;
+        const duration =
+            hrs === 0
+                ? `Duration : ${mins} mins`
+                : `Duration : ${hrs}h ${mins}m`;
         return (
             <div>
                 <div className="movie-details">
@@ -69,6 +74,7 @@ function Movie() {
                                 {year ? year : ""}
                             </div>
                             <div className="movie-genre">{genres}</div>
+                            <div className="movie-duration">{duration}</div>
                             <div className="movie-rating">
                                 <span className="badge">IMDB</span>
                                 {rating}

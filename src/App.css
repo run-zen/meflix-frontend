@@ -113,9 +113,15 @@
         margin-right: 12px;
     }
     .movie-genre {
-        font-size: 20px;
+        margin-top: 5px;
+        font-size: 22px;
         font-weight: 500;
         color: azure;
+    }
+    .movie-duration {
+        color: white;
+        margin-top: 10px;
+        font-size: 24px;
     }
     .movie-rating {
         display: flex;
@@ -353,6 +359,12 @@
         font-size: 20px;
         font-weight: 500;
         color: azure;
+    }
+
+    .movie-duration {
+        color: white;
+        margin-top: 10px;
+        font-size: 20px;
     }
     .movie-rating {
         display: flex;
