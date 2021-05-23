@@ -12,6 +12,9 @@ function Header() {
                             alt="website logo"
                         />
                     </Link>
+                    <Link to={`/browsemovies`} class="browse-link">
+                        Browse Movies
+                    </Link>
                 </div>
             </nav>
         </div>
