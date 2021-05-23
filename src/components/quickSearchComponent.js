@@ -29,37 +29,11 @@ function QuickSearch(props) {
             });
             if (node) observer.current.observe(node);
         },
-        // eslint-disable-next-line
-        [page, loading, hasmore]
+
+        [loading, hasmore]
     );
 
-    useEffect(() => {
-        if (firstrener) {
-            setfirstrender(false);
-            return;
-        }
-        if (page === 1) return;
-        quicksearch(page);
-        // eslint-disable-next-line
-    }, [page]);
-
-    useEffect(() => {
-        getMovies();
-        // eslint-disable-next-line
-    }, []);
-
-    // eslint-disable-next-line
-    useEffect(() => {
-        setHasmore(Moviesfound > Movies.length);
-        // eslint-disable-next-line
-    });
-
-    const onChangeSearchName = (e) => {
-        const searchName = e.target.value;
-        setSearchname(searchName);
-    };
-
-    const getMovies = async () => {
+    const getMovies = useCallback(async () => {
         try {
             setloading(true);
             const parsed = queryString.parse(props.location.search);
@@ -73,22 +47,48 @@ function QuickSearch(props) {
         } catch (e) {
             console.error(e);
         }
-    };
+    }, [page, Movies, Moviesfound, props]);
 
-    async function quicksearch(page = 1) {
-        try {
-            setloading(true);
-            const { data } = await MoviesData.quicksearch(searchname, page);
-            setResultfor(searchname);
-            setMoviesfound(data["Movies found"]);
-            setMovies((prevState) => {
-                return [...prevState, ...data.MoviesList];
-            });
-            setloading(false);
-        } catch (e) {
-            console.error(e);
+    const quicksearch = useCallback(
+        async (page = 1) => {
+            try {
+                setloading(true);
+                const { data } = await MoviesData.quicksearch(searchname, page);
+                setResultfor(searchname);
+                setMoviesfound(data["Movies found"]);
+                setMovies((prevState) => {
+                    return [...prevState, ...data.MoviesList];
+                });
+                setloading(false);
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        [searchname]
+    );
+
+    useEffect(() => {
+        if (firstrener) {
+            setfirstrender(false);
+            return;
         }
-    }
+        if (page === 1) return;
+        quicksearch(page);
+    }, [page, firstrener, quicksearch]);
+
+    useEffect(() => {
+        if (!firstrener) return;
+        getMovies();
+    }, [firstrener, getMovies]);
+
+    useEffect(() => {
+        setHasmore(Moviesfound > Movies.length);
+    }, [Movies, Moviesfound]);
+
+    const onChangeSearchName = (e) => {
+        const searchName = e.target.value;
+        setSearchname(searchName);
+    };
 
     function clickSearch() {
         try {

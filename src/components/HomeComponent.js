@@ -31,23 +31,7 @@ function Home() {
         [page, loading, hasmore]
     );
 
-    useEffect(() => {
-        getMovies();
-
-        // eslint-disable-next-line
-    }, [page]);
-
-    // eslint-disable-next-line
-    useEffect(() => {
-        setHasmore(totmov > Movies.length);
-    });
-
-    const onChangeSearchName = (e) => {
-        const searchName = e.target.value;
-        setSearchname(searchName);
-    };
-
-    const getMovies = async () => {
+    const getMovies = useCallback(async () => {
         try {
             setloading(true);
             const { data } = await MoviesData.getHomepage(page);
@@ -61,6 +45,20 @@ function Home() {
         } catch (e) {
             console.error(e);
         }
+    }, [page, Movies]);
+
+    useEffect(() => {
+        getMovies();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
+
+    useEffect(() => {
+        setHasmore(totmov > Movies.length);
+    }, [Movies, totmov]);
+
+    const onChangeSearchName = (e) => {
+        const searchName = e.target.value;
+        setSearchname(searchName);
     };
 
     function DisplayMovies() {
