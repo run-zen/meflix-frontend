@@ -40,12 +40,12 @@ function Home() {
             setMovies((prevMovies) => {
                 return [...new Set([...prevMovies, ...data.MoviesList])];
             });
-            setHasmore(data["Movies found"] > Movies.length);
+
             setloading(false);
         } catch (e) {
             console.error(e);
         }
-    }, [page, Movies]);
+    }, [page]);
 
     useEffect(() => {
         getMovies();
