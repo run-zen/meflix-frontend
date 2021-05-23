@@ -49,8 +49,7 @@ function Home() {
 
     useEffect(() => {
         getMovies();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
+    }, [page, getMovies]);
 
     useEffect(() => {
         setHasmore(totmov > Movies.length);
