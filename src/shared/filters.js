@@ -37,7 +37,7 @@ export const filters = {
     sortby: [
         { value: "default", label: "Default" },
         { value: "title", label: "Name" },
-        { value: "year", label: "Year" },
+        { value: "released", label: "Year" },
         { value: "imdb.rating", label: "Imdb" },
     ],
 };
