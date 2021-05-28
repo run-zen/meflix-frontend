@@ -1,21 +1,221 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import MySelect from "./selectComponent.js";
 import { filters } from "../shared/filters.js";
+import MoviesData from "../views/moviesData.js";
+import Spinner from "./spinnerComponent.js";
 
 export default function BrowseMovies(props) {
     const [searchname, setSearchname] = useState("");
     const [genre, setGenre] = useState(filters.genres[0].value);
     const [rating, setRating] = useState(filters.rating[0].value);
     const [sortby, setSortby] = useState(filters.sortby[0].value);
+    const [Movies, setMovies] = useState([]);
+    const [Moviesfound, setMoviesfound] = useState(-1);
+    const [loading, setloading] = useState(false);
+    const [moviefilters, setMovieFilters] = useState({
+        name: "",
+        genre: "",
+        sortby: "",
+        rating: "",
+    });
+    const [page, setPage] = useState(1);
+    const [hasmore, setHasmore] = useState(false);
+    const [firstrener, setfirstrender] = useState(true);
+    const [search, setSearch] = useState(true);
+    const [resultmessage, setResultmessage] = useState("All movies");
+    const [isSearchable, setIssearchable] = useState(true);
 
     useEffect(() => {
-        const btn = document.getElementById("submit-btn");
-        btn.click();
-        console.log(`genre : ${genre} rating: ${rating} sortby: ${sortby}`);
+        if (window.innerWidth < 549) {
+            setIssearchable(false);
+        }
+    }, []);
+
+    const observer = useRef();
+    const lastMovie = useCallback(
+        (node) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasmore) {
+                    //console.log("visible");
+                    setPage((prevPage) => prevPage + 1);
+                    setSearch((c) => !c);
+                    // console.log(page);
+                    // console.log(node);
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+
+        [loading, hasmore]
+    );
+
+    const getMovies = useCallback(async () => {
+        try {
+            setloading(true);
+            setfirstrender(false);
+            const { data } = await MoviesData.browseMovies(page, moviefilters);
+            setMovies((prevMovies) => {
+                return [...new Set([...prevMovies, ...data.MoviesList])];
+            });
+            setMoviesfound(data["Movies found"]);
+            if (
+                searchname === "" &&
+                genre === "All" &&
+                rating === "All" &&
+                sortby === "default"
+            ) {
+                setResultmessage(`All movies`);
+            } else {
+                setResultmessage(`${data["Movies found"]} movies found`);
+            }
+            setloading(false);
+        } catch (e) {
+            console.error(e);
+        }
+    }, [page, moviefilters]);
+
+    useEffect(() => {
+        getMovies();
+    }, [search]);
+
+    useEffect(() => {
+        setHasmore(Moviesfound > Movies.length);
+    }, [Movies, Moviesfound]);
+
+    useEffect(() => {
+        if (!firstrener) {
+            document.getElementById("submit-btn").click();
+        }
     }, [genre, rating, sortby]);
 
-    const handleSearch = () => {};
+    const handleSearch = () => {
+        console.log(genre, rating, sortby);
+        const filters = { name: searchname, genre, rating, sortby };
+        setMovieFilters(filters);
+        setMovies([]);
+        setPage(1);
+        setMoviesfound(-1);
+        setSearch((c) => !c);
+    };
+
+    function DisplayMovies() {
+        if (Moviesfound === 0) {
+            return <div className="no-movies">No movies found</div>;
+        }
+
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="results-found">
+                            {!loading ? (
+                                <div>{resultmessage}</div>
+                            ) : (
+                                <div>searching...</div>
+                            )}
+                        </div>
+                    </div>
+                    {Movies.map((movie, index) => {
+                        const title = `${movie.title}`;
+                        const date = new Date(movie.released);
+                        const year = date.getFullYear();
+                        const poster = movie.poster;
+                        const last = Movies.length === index + 4 ? true : false;
+                        if (last) {
+                            return (
+                                <div
+                                    className="col-12 col-md-3 movie-grid"
+                                    key={movie._id}
+                                    ref={lastMovie}
+                                >
+                                    <div className="movie-thumbnail">
+                                        <img
+                                            src={
+                                                poster
+                                                    ? poster
+                                                    : process.env.PUBLIC_URL +
+                                                      "/No_Img_Avail.jpg"
+                                            }
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src =
+                                                    process.env.PUBLIC_URL +
+                                                    "/No_Img_Avail.jpg";
+                                            }}
+                                            alt="movie poster"
+                                            className="img-thumbnail grid-img"
+                                        ></img>
+                                        <Link
+                                            to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn btn-secondary view-details"
+                                        >
+                                            view details
+                                        </Link>
+                                    </div>
+                                    <h4>{title}</h4>
+                                    <h4>{year ? year : ""}</h4>
+                                    <span class="badge">
+                                        imdb:{" "}
+                                        {!movie.imdb.rating
+                                            ? "not rated"
+                                            : movie.imdb.rating}
+                                    </span>
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div
+                                    className="col-12 col-md-3 movie-grid"
+                                    key={movie._id}
+                                >
+                                    <div className="movie-thumbnail">
+                                        <img
+                                            src={
+                                                poster
+                                                    ? poster
+                                                    : process.env.PUBLIC_URL +
+                                                      "/No_Img_Avail.jpg"
+                                            }
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src =
+                                                    process.env.PUBLIC_URL +
+                                                    "/No_Img_Avail.jpg";
+                                            }}
+                                            alt="movie poster"
+                                            className="img-thumbnail grid-img"
+                                        ></img>
+                                        <Link
+                                            to={"/id/" + movie._id}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn btn-secondary view-details"
+                                        >
+                                            view details
+                                        </Link>
+                                    </div>
+                                    <h4>{title}</h4>
+                                    <h4>{year ? year : ""}</h4>
+                                    <span class="badge">
+                                        imdb:{" "}
+                                        {!movie.imdb.rating
+                                            ? "not rated"
+                                            : movie.imdb.rating}
+                                    </span>
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -48,35 +248,54 @@ export default function BrowseMovies(props) {
                                     search
                                 </Link>
                             </div>
-                            <div />
                         </div>
                         <form>
                             <div className="form-row">
                                 <label>Genre</label>
-                                <MySelect
-                                    set={setGenre}
-                                    options={filters.genres}
-                                />
+                                <div className="genre">
+                                    <MySelect
+                                        set={setGenre}
+                                        options={filters.genres}
+                                        loading={loading}
+                                        isSearchable={isSearchable}
+                                    />
+                                </div>
                             </div>
                             <div className="form-row">
                                 <label>Rating</label>
-                                <MySelect
-                                    set={setRating}
-                                    options={filters.rating}
-                                />
+                                <div className="rating">
+                                    <MySelect
+                                        set={setRating}
+                                        options={filters.rating}
+                                        loading={loading}
+                                        isSearchable={isSearchable}
+                                    />
+                                </div>
                             </div>
                             <div className="form-row">
                                 <label>Sort by</label>
-                                <MySelect
-                                    set={setSortby}
-                                    options={filters.sortby}
-                                />
+                                <div className="sort">
+                                    <MySelect
+                                        set={setSortby}
+                                        options={filters.sortby}
+                                        loading={loading}
+                                        isSearchable={isSearchable}
+                                    />
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <div className="row">
+                    <div>
+                        <DisplayMovies />
+                    </div>
+                    <div>{loading && <Spinner />}</div>
+                    {/* <div className="no-movies">
+                        {firstrener && "No movies to show"}
+                    </div> */}
+                </div>
             </div>
-            <div style={{ height: "120vh" }}></div>
         </>
     );
 }

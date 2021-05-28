@@ -107,13 +107,13 @@ function QuickSearch(props) {
                 <div className="row">
                     <div className="col-12">
                         <div className="results-found">
-                            {resultfor !== "" ? (
+                            {loading ? (
+                                <div>searching...</div>
+                            ) : (
                                 <div>
                                     {Moviesfound} movies found for your search "
                                     {resultfor}"
                                 </div>
-                            ) : (
-                                <div>{Moviesfound} movies found</div>
                             )}
                         </div>
                     </div>

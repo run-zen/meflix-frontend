@@ -10,6 +10,7 @@ function MySelect(props) {
         }),
         option: (styles, state) => ({
             ...styles,
+            cursor: "pointer",
             height: "100%",
 
             backgroundColor: state.isFocused ? "blue" : null,
@@ -18,8 +19,14 @@ function MySelect(props) {
         }),
         singleValue: (provided, state) => ({
             ...provided,
+
             color: "black",
             fontSize: "1em",
+        }),
+        control: (styles) => ({
+            ...styles,
+            width: "auto",
+            cursor: "pointer",
         }),
     };
 
@@ -28,7 +35,11 @@ function MySelect(props) {
             options={props.options}
             styles={styles}
             defaultValue={props.options[0]}
-            onChange={(selectedOption) => props.set(selectedOption.value)}
+            onChange={(selectedOption) => {
+                props.set(selectedOption.value);
+            }}
+            isDisabled={props.loading}
+            isSearchable={props.isSearchable}
         ></Select>
     );
 }

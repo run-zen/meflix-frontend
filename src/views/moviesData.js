@@ -18,10 +18,11 @@ class MoviesData {
     }
     browseMovies(page = 1, filters) {
         const name = filters.name || "";
-        const genre = filters.genre || "";
-        const sortby = filters.sortby || "";
+        const genre = filters.genre === "All" ? "" : filters.genre;
+        const sortby = filters.sortby === "default" ? "" : filters.sortby;
+        const rating = filters.rating === "All" ? "" : filters.rating;
         return http.get(
-            `/browseMovies?page=${page}&name=${name}&genre=${genre}&sortby=${sortby}`
+            `/browseMovies?page=${page}&name=${name}&genre=${genre}&sortby=${sortby}&rating=${rating}`
         );
     }
 }
