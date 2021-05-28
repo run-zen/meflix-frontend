@@ -16,6 +16,14 @@ class MoviesData {
     getMovieById(id) {
         return http.get(`/id/${id}`);
     }
+    browseMovies(page = 1, filters) {
+        const name = filters.name || "";
+        const genre = filters.genre || "";
+        const sortby = filters.sortby || "";
+        return http.get(
+            `/browseMovies?page=${page}&name=${name}&genre=${genre}&sortby=${sortby}`
+        );
+    }
 }
 
 export default new MoviesData();
