@@ -12,6 +12,7 @@ export default function BrowseMovies(props) {
     const [genre, setGenre] = useState(filters.genres[0].value);
     const [rating, setRating] = useState(filters.rating[0].value);
     const [sortby, setSortby] = useState(filters.sortby[0].value);
+    const [language, setLanguage] = useState(filters.languages[0].value);
     const [Movies, setMovies] = useState([]);
     const [Moviesfound, setMoviesfound] = useState(-1);
     const [loading, setloading] = useState(false);
@@ -20,6 +21,7 @@ export default function BrowseMovies(props) {
         genre: "",
         sortby: "",
         rating: "",
+        language: "",
     });
     const [page, setPage] = useState(1);
     const [hasmore, setHasmore] = useState(false);
@@ -64,7 +66,12 @@ export default function BrowseMovies(props) {
                 return [...new Set([...prevMovies, ...data.MoviesList])];
             });
             setMoviesfound(data["Movies found"]);
-            if (searchname === "" && genre === "All" && rating === "All") {
+            if (
+                searchname === "" &&
+                genre === "All" &&
+                rating === "All" &&
+                language === "All"
+            ) {
                 setResultmessage(`All movies`);
             } else {
                 setResultmessage(`${data["Movies found"]} movies found`);
@@ -87,16 +94,18 @@ export default function BrowseMovies(props) {
         if (!firstrener) {
             document.getElementById("submit-btn").click();
         }
-    }, [genre, rating, sortby]);
+    }, [genre, rating, sortby, language]);
 
     const handleSearch = () => {
+        window.scroll(0, 0);
         console.log(genre, rating, sortby);
-        const filters = { name: searchname, genre, rating, sortby };
+        const filters = { name: searchname, genre, rating, sortby, language };
         setMovieFilters(filters);
         setMovies([]);
         setPage(1);
         setMoviesfound(-1);
         setSearch((c) => !c);
+        window.scroll(0, 0);
     };
     const toggle = (e) => {
         setIsOpen(!isOpen);
@@ -252,7 +261,7 @@ export default function BrowseMovies(props) {
                                         <Link
                                             id="submit-btn"
                                             for="#quicksearch-bar"
-                                            to={`/browsemovies/?name=${searchname}&genre=${genre}&rating=${rating}&sortby=${sortby}`}
+                                            to={`/browsemovies/?name=${searchname}&genre=${genre}&rating=${rating}&sortby=${sortby}&language=${language}`}
                                             type="submit"
                                             class="btn btn-outline-success"
                                             onClick={handleSearch}
@@ -286,7 +295,18 @@ export default function BrowseMovies(props) {
                                         </div>
                                     </div>
                                     <div className="form-row">
-                                        <label>Sort by</label>
+                                        <label>Language</label>
+                                        <div className="language">
+                                            <MySelect
+                                                set={setLanguage}
+                                                options={filters.languages}
+                                                loading={loading}
+                                                isSearchable={isSearchable}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-row">
+                                        <label>Order by</label>
                                         <div className="sort">
                                             <MySelect
                                                 set={setSortby}

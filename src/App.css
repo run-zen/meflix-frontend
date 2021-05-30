@@ -315,7 +315,7 @@
         width: 100%;
     }
     .form-row label {
-        width: 20vw;
+        width: 25vw;
         margin-bottom: 10px;
         font-size: 1.2em;
         font-weight: 300;
@@ -331,10 +331,15 @@
         width: 70%;
         z-index: 400;
     }
-    .sort {
+    .language {
         font-size: 0.9em;
         width: 70%;
         z-index: 200;
+    }
+    .sort {
+        font-size: 0.9em;
+        width: 70%;
+        z-index: 180;
     }
 
     .no-movies {

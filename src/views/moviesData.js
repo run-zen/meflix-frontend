@@ -21,8 +21,9 @@ class MoviesData {
         const genre = filters.genre === "All" ? "" : filters.genre;
         const sortby = filters.sortby === "default" ? "" : filters.sortby;
         const rating = filters.rating === "All" ? "" : filters.rating;
+        const language = filters.language === "All" ? "" : filters.language;
         return http.get(
-            `/browseMovies?page=${page}&name=${name}&genre=${genre}&sortby=${sortby}&rating=${rating}`
+            `/browseMovies?page=${page}&name=${name}&genre=${genre}&sortby=${sortby}&rating=${rating}&language=${language}`
         );
     }
 }
