@@ -242,6 +242,28 @@
     .browse-link:hover {
         color: var(--mygreen);
     }
+    .filter-toggle {
+        left: 2vw;
+        margin-top: 2vh;
+        min-width: 10vw;
+    }
+    .sticky button {
+        color: white;
+    }
+    .sticky button:hover {
+        color: white;
+        background: none;
+    }
+
+    .sticky {
+        width: 100vw;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.9);
+        min-height: 8vh;
+    }
     .center-form {
         display: flex;
         flex: content;
@@ -274,6 +296,11 @@
     .browse-input input {
         width: 50vw;
         height: fit-content;
+    }
+    .filter-title {
+        opacity: 0.8;
+        font-size: 1.3em;
+        margin-bottom: 2vh;
     }
 
     form {
@@ -569,7 +596,29 @@
         transform: scale(1.3);
         transition-duration: 0.5s;
     }
+    .filter-toggle {
+        position: absolute;
+        left: 2vw;
+        margin-top: 2vh;
+        width: 10vw;
+    }
+    .sticky button {
+        color: white;
+    }
+    .sticky button:hover {
+        color: white;
+    }
+    .sticky {
+        width: 100vw;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.85);
+        min-height: 10vh;
+    }
     .center-form {
+        /* border: 2px solid white; */
         display: flex;
         flex: content;
         justify-content: center;
@@ -606,6 +655,11 @@
         flex: content;
         justify-content: center;
     }
+    .filter-title {
+        opacity: 0.8;
+        font-size: 1.5em;
+        margin-bottom: 2vh;
+    }
 
     form {
         color: white;
@@ -622,9 +676,10 @@
         z-index: 200;
     }
     .form-row label {
+        opacity: 0.85;
         margin-bottom: 10px;
         font-size: 22px;
-        font-weight: 600;
+        font-weight: 400;
     }
     select {
         background: rgb(255, 255, 255);

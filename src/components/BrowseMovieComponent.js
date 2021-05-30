@@ -5,6 +5,7 @@ import MySelect from "./selectComponent.js";
 import { filters } from "../shared/filters.js";
 import MoviesData from "../views/moviesData.js";
 import Spinner from "./spinnerComponent.js";
+import { Collapse } from "reactstrap";
 
 export default function BrowseMovies(props) {
     const [searchname, setSearchname] = useState("");
@@ -26,6 +27,7 @@ export default function BrowseMovies(props) {
     const [search, setSearch] = useState(true);
     const [resultmessage, setResultmessage] = useState("All movies");
     const [isSearchable, setIssearchable] = useState(true);
+    const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
         if (window.innerWidth < 549) {
@@ -62,12 +64,7 @@ export default function BrowseMovies(props) {
                 return [...new Set([...prevMovies, ...data.MoviesList])];
             });
             setMoviesfound(data["Movies found"]);
-            if (
-                searchname === "" &&
-                genre === "All" &&
-                rating === "All" &&
-                sortby === "default"
-            ) {
+            if (searchname === "" && genre === "All" && rating === "All") {
                 setResultmessage(`All movies`);
             } else {
                 setResultmessage(`${data["Movies found"]} movies found`);
@@ -100,6 +97,10 @@ export default function BrowseMovies(props) {
         setPage(1);
         setMoviesfound(-1);
         setSearch((c) => !c);
+    };
+    const toggle = (e) => {
+        setIsOpen(!isOpen);
+        e.target.blur();
     };
 
     function DisplayMovies() {
@@ -218,84 +219,93 @@ export default function BrowseMovies(props) {
     }
 
     return (
-        <>
-            <div className="container">
-                <div className="row center-form">
-                    <div className="search-form">
-                        <div className="browse-search">
-                            <div class="input-group browse-input">
-                                <div class="form-outline">
-                                    <input
-                                        type="search"
-                                        id="quicksearch-bar"
-                                        className="form-control"
-                                        placeholder="search name"
-                                        value={searchname}
-                                        onChange={(e) =>
-                                            setSearchname(e.target.value)
-                                        }
-                                        required
-                                    />
+        <div className="container">
+            <div className="row">
+                <div className="sticky">
+                    <button
+                        className="btn btn-outline-success filter-toggle"
+                        onClick={toggle}
+                        style={{ marginBottom: "1rem" }}
+                    >
+                        {isOpen ? "Close filters" : "Open filters"}
+                    </button>
+                    <Collapse isOpen={isOpen}>
+                        <div className="center-form">
+                            <div className="search-form">
+                                <div className="browse-search">
+                                    <div class="input-group browse-input">
+                                        <div class="form-outline">
+                                            <input
+                                                type="search"
+                                                id="quicksearch-bar"
+                                                className="form-control"
+                                                placeholder="search name"
+                                                value={searchname}
+                                                onChange={(e) =>
+                                                    setSearchname(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                required
+                                            />
+                                        </div>
+                                        <Link
+                                            id="submit-btn"
+                                            for="#quicksearch-bar"
+                                            to={`/browsemovies/?name=${searchname}&genre=${genre}&rating=${rating}&sortby=${sortby}`}
+                                            type="submit"
+                                            class="btn btn-outline-success"
+                                            onClick={handleSearch}
+                                        >
+                                            search
+                                        </Link>
+                                    </div>
                                 </div>
-                                <Link
-                                    id="submit-btn"
-                                    for="#quicksearch-bar"
-                                    to={`/browsemovies/?name=${searchname}&genre=${genre}&rating=${rating}&sortby=${sortby}`}
-                                    type="submit"
-                                    class="btn btn-outline-success"
-                                    onClick={handleSearch}
-                                >
-                                    search
-                                </Link>
+                                <div className="filter-title">Filter by :</div>
+                                <form>
+                                    <div className="form-row">
+                                        <label>Genre</label>
+                                        <div className="genre">
+                                            <MySelect
+                                                set={setGenre}
+                                                options={filters.genres}
+                                                loading={loading}
+                                                isSearchable={isSearchable}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-row">
+                                        <label>Rating</label>
+                                        <div className="rating">
+                                            <MySelect
+                                                set={setRating}
+                                                options={filters.rating}
+                                                loading={loading}
+                                                isSearchable={isSearchable}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-row">
+                                        <label>Sort by</label>
+                                        <div className="sort">
+                                            <MySelect
+                                                set={setSortby}
+                                                options={filters.sortby}
+                                                loading={loading}
+                                                isSearchable={isSearchable}
+                                            />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <form>
-                            <div className="form-row">
-                                <label>Genre</label>
-                                <div className="genre">
-                                    <MySelect
-                                        set={setGenre}
-                                        options={filters.genres}
-                                        loading={loading}
-                                        isSearchable={isSearchable}
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <label>Rating</label>
-                                <div className="rating">
-                                    <MySelect
-                                        set={setRating}
-                                        options={filters.rating}
-                                        loading={loading}
-                                        isSearchable={isSearchable}
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <label>Sort by</label>
-                                <div className="sort">
-                                    <MySelect
-                                        set={setSortby}
-                                        options={filters.sortby}
-                                        loading={loading}
-                                        isSearchable={isSearchable}
-                                    />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </Collapse>
                 </div>
-                <div className="row">
-                    <div>
-                        <DisplayMovies />
-                    </div>
-                    <div>{loading && <Spinner />}</div>
-                    {/* <div className="no-movies">
-                        {firstrener && "No movies to show"}
-                    </div> */}
+                <div>
+                    <DisplayMovies />
                 </div>
+                <div>{loading && <Spinner />}</div>
             </div>
-        </>
+        </div>
     );
 }
